@@ -9,6 +9,11 @@ class DefaultController extends Controller
 {
     public function homepage(Request $request, Response $response)
     {
-        return $this->renderPage($response, 'homepage.html');
+    	$articles = $this->ci->get('db')->getRepository('App\Entity\Article')->findBy([], [
+    		'publiched' => 'DESC'
+    	]);
+        return $this->renderPage($response, 'homepage.html', [
+        	'articles'=> $articles
+        ]);
     }
 }
