@@ -38,8 +38,6 @@ class AdminController extends Controller
             return $response->withRedirect('/admin');
         }
 
-
-
         return $this->renderPage($response, 'admin/create.html', [
             'article' => $article
         ]);
@@ -54,6 +52,13 @@ class AdminController extends Controller
         }
 
         if($request->isPost()){
+
+            if($request->getParam('action') == 'delete'){
+                $this->ci->get('db')->remove($article);
+                $this->ci->get('db')->flush();
+
+                return $response->withRedirect('/admin');
+            }
             $article->setName($request->getParam('name'));
             $article->setSlug($request->getParam('slug'));
             $article->setImage($request->getParam('image'));
