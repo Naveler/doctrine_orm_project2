@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collection\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
 * @Entity
@@ -22,7 +22,7 @@ class Author{
 
 	/**
 	* @OneToMany(targetEntity="Article", mappedBy="author")
-	* @OrderBy({"publiched" = "DESC"})
+	* @OrderBy({"published" = "DESC"})
 	*/
 	private $articles;
 
