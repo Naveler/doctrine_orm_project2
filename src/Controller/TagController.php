@@ -8,14 +8,24 @@ use Slim\Exception\HttpNotFoundException;
 
 class TagController extends Controller
 {
+
+    public function tag(Request $request, Response $response, $args = [])
+    {
+        $tag = $this->ci->get('db')->find('App\Entity\Tag', $args['id']);
+
+        if(!$tag){
+            throw new HttpNotFoundException($request);
+        }
+
+        return $this->renderPage($response, 'tag.html', ['tag' => $tag, 'articles' => $tag->getArticles()]);
+    }
+
     public function view(Request $request, Response $response)
     {
-        $tag = $this->ci->get('db')->getRepository('App\Entity\Tag')->findBy([], [
-            'id' => 'ASC'
-        ]);
+        $tags = $this->ci->get('db')->getRepository('App\Entity\Tag')->findBy([], []);
 
-        return $this->renderPage($response, 'tag.html', [
-            'tag' => $tag
+        return $this->renderPage($response, 'tags.html', [
+            'tags' => $tags
         ]);
     }
 } 
