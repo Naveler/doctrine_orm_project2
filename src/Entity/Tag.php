@@ -20,11 +20,11 @@ class Tag {
 	private $name;
 
 	/**
-	* @ManyToMany(targetEntity="Article", cascade={"persist"})
+	* @ManyToMany(targetEntity="Article", mappedBy="tags", cascade={"persist"})
 	* @JoinTable(name="article_tags")
 	* @JoinColumn(referencedColumnName="id", nullable=false)
 	*/
-	
+
 	private $articles;
 
 	public function __construct(){
